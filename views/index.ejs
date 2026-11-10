@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Message Board</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Mini Message Board</h1>
+
+        <div class="nav-header">
+            <% if (currentUser) { %>
+                <span>Welcome, <strong><%= currentUser.username %></strong>!</span>
+                <div class="nav-links">
+                    <a href="/new">Post Message</a> | 
+                    <a href="/logout">Log Out</a>
+                </div>
+            <% } else { %>
+                <span>Hello, Guest!</span>
+                <div class="nav-links">
+                    <a href="/login">Log In</a> | <a href="/register">Register</a>
+                </div>
+            <% } %>
+        </div>
+
+        <h2>Message Feed</h2>
+        
+        <% if (messages && messages.length > 0) { %>
+            <ul class="messages-list">
+                <% messages.forEach(message => { %>
+                    <li class="message-card">
+                        <div class="message-meta">
+                            <span class="message-author">@<%= message.username %></span>
+                            <small><%= new Date(message.added).toLocaleString() %></small>
+                        </div>
+                        <p class="message-text"><%= message.text %></p>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <p style="color: #718096; margin-top: 1rem;">No messages yet. Be the first to post!</p>
+        <% } %>
+    </div>
+</body>
+</html>
